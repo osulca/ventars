@@ -41,7 +41,7 @@ class Usuario
             try {
                 $conexion = new ConexionBD();
                 $cnx = $conexion->getConexion();
-                $sql = "SELECT COUNT(username)  FROM usuarios WHERE username='$this->username';";
+                $sql = "SELECT password FROM usuarios WHERE username='$this->username';";
                 $resultado = $cnx->query($sql);
                 $conexion->cerrar();
                 return $resultado;

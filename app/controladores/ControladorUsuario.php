@@ -13,22 +13,33 @@ class ControladorUsuario
         $password = password_hash($password, PASSWORD_DEFAULT);
         $usuario = new Usuario($username, $password);
         if ($usuario->crear() != 0) {
-            $resultado = "Guardado";
+            header("location: index.php?s");
         } else {
-            $resultado = "Error";
+            header("location: usuarioCrear.php?s");
         }
-        return $resultado;
+
     }
 
     public function login($username, $password){
-        // comprobar usuario
-            // si existe
-                // compruebo contraseña
-                    // si existe
-                        // redirigir
-                    // sino
-                // error
-            // sino
-                // error
+            $usuario = new Usuario($username, $password);
+/*            $resultado = $usuario->existe();
+
+            foreach ($resultado as $user){
+                $passwordbd = $user["password"];
+            }
+
+            if (isset($passwordbd)){
+                if(password_verify($password, $passwordbd)){*/
+                    session_start();
+                    $_SESSION["usuario"] = $username;
+                    // TODO: extraer de la bd;
+                    $_SESSION["tipo"] = "dispensador";
+                    header("location: bienvenido.php");
+              /*  }else{
+                    echo "usuario y/o contraseña incorrecto";
+                }
+            }else{
+                echo "usuario y/o contraseña incorrecto";
+            }*/
     }
 }

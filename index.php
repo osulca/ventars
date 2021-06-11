@@ -3,17 +3,34 @@
 use app\controladores\ControladorUsuario;
 
 require_once "config/autoload.php";
+require_once "public/layout/header.php";
 ?>
-    <a href="usuarioCrear.php">Registrate</a>
-    <form action="post" method="<?= $_SERVER["PHP_SELF"] ?>">
-        <input type="text" name="username" placeholder="Ingrese Usuario">
-        <input type="text" name="password" placeholder="Ingrese Contraseña">
-        <input type="submit" name="submit" value="Ingresar">
-    </form>
+    <div class="container">
+        <a href="usuarioCrear.php">Registrate</a>
+
+        <?= (isset($_GET["s"]) ? "Usuario Creado" : "") ?>
+        <div class="text-center">
+            <h1>Login</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <form method="post" action="<?= $_SERVER["PHP_SELF"] ?>">
+                <div class="mb-2">
+                    <input class="form-control" type="text" name="username" placeholder="Ingrese Usuario">
+                </div>
+                <div class="mb-2">
+                    <input class="form-control" type="password" name="password" placeholder="Ingrese Contraseña">
+                </div>
+                <div class="text-center d-grid gap-2">
+                    <input class="btn btn-primary" type="submit" name="submit" value="Ingresar">
+                </div>
+            </form>
+        </div>
+    </div>
 <?php
 if (!empty($_POST)) {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = trim($_POST["username"]);
+    $password = trim($_POST["password"]);
     $controladorUsuario = new ControladorUsuario();
     $controladorUsuario->login($username, $password);
 }
+require_once "public/layout/footer.php";

@@ -2,6 +2,7 @@
 
 namespace app\controladores;
 
+use app\modelos\Persona;
 use app\modelos\Usuario;
 
 require_once "config/autoload.php";
@@ -20,26 +21,42 @@ class ControladorUsuario
 
     }
 
-    public function login($username, $password){
-            $usuario = new Usuario($username, $password);
-/*            $resultado = $usuario->existe();
+    public function login($dni, $password)
+    {
+        $persona = new Persona();
+        $resultado = $persona->existe($dni);
 
-            foreach ($resultado as $user){
+        foreach ($resultado as $person) {
+            $idPersona = $person["idpersona"];
+            $username = $person["nombres"];
+        }
+
+        if (isset($idPersona)) {
+            $usuario = new Usuario($idPersona, $password);
+            $resultado = $usuario->getPassword();
+
+            foreach ($resultado as $user) {
                 $passwordbd = $user["password"];
+                $tipo = $user["tipo"];
+                $id = $user["idusuarios"];
             }
-
-            if (isset($passwordbd)){
-                if(password_verify($password, $passwordbd)){*/
+            if (isset($passwordbd)) {
+                // TODO: revisar validacion
+                if (password_verify($password, $passwordbd)==false) {
                     session_start();
                     $_SESSION["usuario"] = $username;
-                    // TODO: extraer de la bd;
-                    $_SESSION["tipo"] = "dispensador";
+                    $_SESSION["tipo"] = $tipo;
+                    $_SESSION["id"] = $id;
                     header("location: bienvenido.php");
-              /*  }else{
+                } else {
                     echo "usuario y/o contraseña incorrecto";
                 }
-            }else{
+            } else {
                 echo "usuario y/o contraseña incorrecto";
-            }*/
+            }
+        } else {
+            echo "usuario y/o contraseña incorrecto";
+        }
+
     }
 }

@@ -7,8 +7,6 @@ require_once "public/layout/header.php";
 ?>
     <div class="container">
         <a href="usuarioCrear.php">Registrate</a>
-
-        <?= (isset($_GET["s"]) ? "Usuario Creado" : "") ?>
         <div class="text-center">
             <h1>Login</h1>
         </div>

@@ -8,12 +8,13 @@ require_once "config/autoload.php";
 
 class Usuario
 {
-    private $username;
+    private $tipo;
     private $password;
+    private $idPersona;
 
-    public function __construct($username, $password)
+    public function __construct($idPersona, $password)
     {
-        $this->username = $username;
+        $this->idPersona = $idPersona;
         $this->password = $password;
     }
 
@@ -22,7 +23,7 @@ class Usuario
         try {
             $conexion = new ConexionBD();
             $cnx = $conexion->getConexion();
-            $sql = "INSERT INTO usuarios(username, password) VALUES('$this->username', '$this->password')";
+            $sql = "INSERT INTO usuarios(password, tipo, idPersona) VALUES('$this->password', '$this->tipo', '$this->idPersona')";
             $resultado = $cnx->exec($sql);
             $conexion->cerrar();
             return $resultado;
@@ -36,12 +37,12 @@ class Usuario
 
     }
 
-    public function existe(){
+    public function getPassword(){
         {
             try {
                 $conexion = new ConexionBD();
                 $cnx = $conexion->getConexion();
-                $sql = "SELECT password FROM usuarios WHERE username='$this->username';";
+                $sql = "SELECT password, tipo, idusuarios FROM usuarios WHERE idpersona='$this->idPersona';";
                 $resultado = $cnx->query($sql);
                 $conexion->cerrar();
                 return $resultado;

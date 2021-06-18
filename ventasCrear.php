@@ -1,8 +1,6 @@
 <?php
-
 use config\Ayuda;
 use app\controladores\ControladorVenta;
-
 include_once "config/autoload.php";
 
 Ayuda::autenticado();

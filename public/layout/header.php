@@ -31,7 +31,7 @@
                         break;
                     case "dispensador":
                         echo "<li class='nav-item'>
-                    <a class='nav-link' href='#'>Despachar Ventas</a>
+                    <a class='nav-link' href='ventasDespacho.php'>Despachar Ventas</a>
                 </li>";
                         break;
                 }

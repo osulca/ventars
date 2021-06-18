@@ -14,7 +14,7 @@ class ControladorVenta
         $venta = new Venta($fecha, $id);
         $idVenta = $venta->crear();
         if ($idVenta != 0) {
-            require_once "detallevCrear.php";
+            header ("location: detallevCrear.php?id=$idVenta");
         } else {
             return "No se guardó";
         }
